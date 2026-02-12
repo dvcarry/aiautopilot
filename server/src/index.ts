@@ -1,3 +1,10 @@
+// Полифилл для Object.hasOwn (для совместимости с Node.js < 16.9.0)
+if (!Object.hasOwn) {
+  Object.hasOwn = function(obj: any, prop: string | symbol) {
+    return Object.prototype.hasOwnProperty.call(obj, prop);
+  };
+}
+
 // Загружаем переменные окружения в самом начале
 import dotenv from "dotenv";
 dotenv.config();
