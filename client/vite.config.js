@@ -13,10 +13,22 @@ export default defineConfig({
     },
   },
   build: {
-    target: 'es2020',
+    target: 'es2018',
     outDir: 'dist',
+    minify: 'terser',
+    rollupOptions: {
+      output: {
+        manualChunks: undefined,
+      },
+    },
   },
   esbuild: {
-    target: 'es2020'
+    target: 'es2018',
+    supported: {
+      'logical-assignment': false
+    }
+  },
+  define: {
+    global: 'globalThis',
   }
 })
