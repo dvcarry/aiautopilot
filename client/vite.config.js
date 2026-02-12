@@ -13,22 +13,29 @@ export default defineConfig({
     },
   },
   build: {
-    target: 'es2018',
+    target: 'node14',
     outDir: 'dist',
-    minify: 'terser',
+    minify: false,
     rollupOptions: {
-      output: {
-        manualChunks: undefined,
-      },
+      external: [],
     },
   },
   esbuild: {
-    target: 'es2018',
+    target: 'node14',
     supported: {
-      'logical-assignment': false
+      'logical-assignment': false,
+      'nullish-coalescing-assignment': false,
+      'optional-chaining': true,
+      'nullish-coalescing': true
     }
   },
-  define: {
-    global: 'globalThis',
+  optimizeDeps: {
+    esbuildOptions: {
+      target: 'node14',
+      supported: {
+        'logical-assignment': false,
+        'nullish-coalescing-assignment': false
+      }
+    }
   }
 })
