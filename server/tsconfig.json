@@ -8,5 +8,8 @@
     "strict": true,
     "outDir": "./build",
     "skipLibCheck": true,
+    "typeRoots": ["./node_modules/@types", "./src/types"]
   },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "build"]
 }
