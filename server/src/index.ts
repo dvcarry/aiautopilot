@@ -5,6 +5,7 @@ dotenv.config();
 import express, { Request, Response } from "express";
 const app = express();
 import cors from "cors";
+import path from "path";
 
 import { sequelize } from "./db/db";
 import "./models/Replica"; // Импортируем модель для регистрации
@@ -24,6 +25,17 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/api/replicas", replicaRoutes);
 app.use("/api/chat", chatRoutes);
 app.use("/api/answers", answerRoutes);
+
+
+app.use(express.static(path.join(__dirname, '../../client/dist')));
+
+// SPA fallback: корень и любые пути отдают index.html (/*path не матчит "/", поэтому явно добавляем "/")
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, '../../client/dist', 'index.html'));
+});
+app.get('/*path', (req, res) => {
+  res.sendFile(path.join(__dirname, '../../client/dist', 'index.html'));
+});
 
 // Обработчик для несуществующих маршрутов (должен быть в самом конце)
 app.use((req: Request, res: Response) => {
