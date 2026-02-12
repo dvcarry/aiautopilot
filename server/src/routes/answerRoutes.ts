@@ -26,7 +26,7 @@ router.get("/", async (req: Request, res: Response) => {
 router.get("/:id", async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const answer = await Answer.findByPk(id);
+    const answer = await Answer.findByPk(parseInt(id as string));
 
     if (!answer) {
       return res.status(404).json({
@@ -61,7 +61,7 @@ router.patch("/:id/status", async (req: Request, res: Response) => {
       });
     }
 
-    const answer = await Answer.findByPk(id);
+    const answer = await Answer.findByPk(parseInt(id as string));
 
     if (!answer) {
       return res.status(404).json({
@@ -89,7 +89,7 @@ router.patch("/:id/status", async (req: Request, res: Response) => {
 router.delete("/:id", async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const answer = await Answer.findByPk(id);
+    const answer = await Answer.findByPk(parseInt(id as string));
 
     if (!answer) {
       return res.status(404).json({
